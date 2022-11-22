@@ -18,6 +18,10 @@ app.get("/getDistricts",async (req,res)=>{
       FROM districts As lg   ) As f )  As fc;`)
     res.json(result.rows[0].row_to_json)
 });
+app.get("/getSpatialTables", async(req,res)=>{
+    let result =await db.query("SELECT name,display_name,geom_type FROM hospital_tables_info;")
+    res.send(result.rows)
+})
 app.post("/createRecords",async (req,res)=>{
     const {key,values,table,id} = req.body;
     if(id)
