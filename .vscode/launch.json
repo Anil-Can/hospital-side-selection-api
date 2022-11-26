@@ -1,7 +1,7 @@
 {
     "configurations": [
     {
-        "command": "npm start",
+        "command": "node ./server.js",
         "name": "Run npm start",
         "request": "launch",
         "type": "node-terminal"
