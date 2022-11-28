@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('combined'));
 app.get("/getDistricts",async(req,res)=>{
-    const query = "SELECT id,name FROM districts;"
+    const query = "SELECT id,name FROM districts ORDER BY name;"
     console.log(chalk.green('HOSPITAL SQL :') + chalk.blueBright(query))
     let result =await db.query(query)
     res.send(result.rows)
@@ -67,7 +67,7 @@ app.get("/getFeatures",async(req,res) => {
     
 })
 app.get("/getSpatialTables", async(req,res)=>{
-    const query = "SELECT name,geom_type FROM hospital_tables_info;"
+    const query = "SELECT name,geom_type,related FROM hospital_tables_info;"
     console.log(chalk.green('HOSPITAL SQL :') + chalk.blueBright(query))
     let result =await db.query(query)
     res.send(result.rows)
