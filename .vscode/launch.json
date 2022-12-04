@@ -1,10 +1,13 @@
 {
     "configurations": [
     {
-        "command": "node ./server.js",
-        "name": "Run npm start",
+        "name": "Launch Program",
+        "program": "${workspaceFolder}/server.js",
         "request": "launch",
-        "type": "node-terminal"
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "type": "node"
     }
     ]
 }
