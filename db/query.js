@@ -75,7 +75,8 @@ const getFeatures = async(req,res) => {
     
 }
 const getSpatialTables = async(req,res)=>{
-    const query = "SELECT name,geom_type,related FROM hospital_tables_info;"
+    const {type} = req.query
+    const query = `SELECT name,geom_type,related FROM hospital_tables_info WHERE type = '${type}';`
     console.log(chalk.green('HOSPITAL SQL :') + chalk.blueBright(query))
     let result =await db.query(query)
     res.send(result.rows)
