@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const chalk = require("chalk");
 
-const { getDistricts,getCategories,getFeatures,getSpatialTables,createRecords } = require('./db/query.js');
+const { getDistricts,getCategories,getFeatures,getSpatialTables,createRecords,getDistrict } = require('./db/query.js');
 
 require('dotenv').config();
 
@@ -13,6 +13,7 @@ app.use(cors());
 app.use(express.json({limit: '50mb'}));
 app.use(morgan('combined'));
 app.get("/getDistricts",getDistricts);
+app.get("/getDistrict",getDistrict);
 app.get("/getCategories",getCategories);
 app.get("/getFeatures",getFeatures)
 app.get("/getSpatialTables",getSpatialTables)

@@ -8,10 +8,23 @@ const getDistricts = async(req,res)=>{
 }
 const getCategories = async(req,res) => {
     const {name,tableName} = req.query
-    const query = `SELECT DISTINCT ${name} FROM public.${tableName};`
+    const query = `SELECT DISTINCT ${name} FROM public.${tableName} ORDER BY ${name};`
     console.log(chalk.green('HOSPITAL SQL :') + chalk.blueBright(query));
     let result =await db.query(query);
     res.send(result.rows);
+}
+const getDistrict = async (req,res) => {
+    const {id} = req.query;
+
+    const query = `SELECT row_to_json(fc)
+    FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features
+    FROM (SELECT 'Feature' As type
+       , ST_AsGeoJSON(lg.geom)::json As geometry
+       , json_build_object('id',id) As properties
+      FROM districts As lg WHERE id = ${id}  ) As f )  As fc;`
+    console.log(chalk.green('HOSPITAL SQL :') + chalk.blueBright(query))
+    let result = await db.query(query)
+    res.json(result.rows[0].row_to_json.features[0]);
 }
 const getFeatures = async(req,res) => {
     const {tableName,where,joinAtt} = req.query;
@@ -95,5 +108,5 @@ const createRecords = async (req,res)=>{
     }
 }
 module.exports = {
-    getDistricts,getCategories,getFeatures,getSpatialTables,createRecords
+    getDistricts,getCategories,getFeatures,getSpatialTables,createRecords,getDistrict
 }
