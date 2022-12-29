@@ -1,16 +1,20 @@
 # Hospital-Side-Selection-API
 
-Bu cbs projesinde yapılan ve elde edilen data ve analizlerin web üzerinde göstermesini sağlayan Bu uyguluma [hospital-side-selection](https://github.com/Anil-Can/hospital-side-selection) backend uygulamasıdır.
+Bu cbs projesinde yapılan ve elde edilen data ve analizlerin web üzerinde göstermesini sağlayan Bu uygulama [hospital-side-selection](https://github.com/Anil-Can/hospital-side-selection) backend uygulamasıdır.
 
 
 ### Uygulama Gereksinimleri
 
 [Node-JS](https://nodejs.org/en/)
+
 [Docker](https://www.docker.com/)
 
 ### Kurulumu
 
-Uygulmanın kurulması için 2 uygulamada aynı klasörde olmak zorundadır.
+- .env.example adında bir dosya bulunmaktadır.
+- Bu dosya ismini .env olarak değiştirip veritabanı bilgileri ile uygulamanın çalışacağı portu doldurmanız gereklidir.
+- Db host kısmına postgresql servisi ismi yazılmaldıır.Eğer yml dosyasında değişklik yapmadıysanız db olarak girin
+- Uygulamanın kurulması için 2 uygulamada aynı klasörde olmak zorundadır.
 
 ```
 project/
@@ -20,13 +24,10 @@ project/
 Gerekli docker image ve containerları oluşturmak için apide ```docker-compose up -d``` komudu çalıştırılır.Bu işlem birkaç dakika sürecektir.
 
 ## VeriTabanı Ayarı
-- .env.example adında bir dosya bulunmaktadır.
-- Bu dosya ismini .env olarak değiştirip veritabanı bilgileri ile uygulumanın çalışacağı portu dolurmanız gereklidir.
-- Db host ksımına posstresql servisi ismi yazılmaldıır.Eğer yml dosyasında değişklik yapmadıysanız db olarak girin
 - <b>postgresql_db</b>  docker containerinde içersinde tüm tabloların olduğu bir backup dosyası bulunmaktadır.
 - Öncelikle bu backup dosyasını restore etmelisiniz.
-- Bu containerin terminalı açılıp ```pg -restore -U |dbuser| -h |serviceName| -d |dbname| dc/hospital.backup``` komudu çalışıtırılır.
-- Örnek Komut ```pg -restore -U postgres -h db postgres /dc/hospital.backup```
+- Bu containerin terminalı açılıp ```pg_restore -U |dbuser| -h |serviceName| -d |dbname| dc/hospital.backup``` komudu çalışıtırılır.
+- Örnek Komut ```pg_restore -U postgres -h db -d postgres /dc/hospital.backup```
 
 ## NGINX
 
